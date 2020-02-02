@@ -19,11 +19,14 @@ h1 {
   font-size: 150%;
 }
 
+#great {
+  cursor: pointer;
+}
+
 .stripe {
   text-align: center;
   background-color: white;
   height: 30px;
-  cursor: pointer;
 }
 
 #container {
