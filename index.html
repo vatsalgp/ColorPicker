@@ -10,7 +10,9 @@
   </head>
   <body>
     <h1>
+      <div onclick="toggleRelative();">
       The Great Color
+      </div>
       <div
         id="displayColor"
         onmouseover="this.style.cursor='pointer'"
@@ -19,7 +21,7 @@
       ></div>
       Guessing Game
     </h1>
-    <div class="stripe" onclick="toggleRelative();">
+    <div class="stripe">
       <button id="resetButton">New Colors</button>
       <span id="response"></span>
       <button id="easyButton">Easy</button>
