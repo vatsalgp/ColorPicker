@@ -1,194 +1,101 @@
-//Variables
-var isHard = true;
-var colors = [];
-var num;
-var pickedColor;
-var pickedColorRelative;
-var clickedColor;
-var squares = document.querySelectorAll(".square");
-var response = document.querySelector("#response");
-var h1 = document.querySelector("h1");
-var displayColor = document.querySelector("#displayColor");
-var resetButton = document.querySelector("#resetButton");
-var easyButton = document.querySelector("#easyButton");
-var hardButton = document.querySelector("#hardButton");
-var displayFormat = "hex";
-var isRelative = true;
-// var displayFormat = "hex";
-//Functions
-function toggleRelative() {
-  isRelative = !isRelative;
-  displayColorFormat();
-}
-function numToRel(num) {
-  var ans = num / 255;
+const h1 = document.querySelector("h1");
+const squares = document.querySelectorAll(".square");
+const response = document.querySelector("#response");
+const displayColor = document.querySelector("#displayColor");
+const resetButton = document.querySelector("#resetButton");
+const easyButton = document.querySelector("#easyButton");
+const hardButton = document.querySelector("#hardButton");
 
-  if (ans == 1) ans = 99;
-  else ans = Math.floor(ans * 100);
+let displayFormat = "hex";
+let numberFormat = "rel";
+let level = "hard";
+let noOfBoxes = 6;
+let colors = [];
+let pickedColor;
+let clickedColor;
 
-  ans = ans.toString(10);
-  if (ans.length == 1) ans = "0" + ans;
-  return ans;
-}
-function toRelative(color) {
-  return {
-    r: numToRel(color.r),
-    g: numToRel(color.g),
-    b: numToRel(color.b)
-  };
-}
-function toggleFormat() {
-  if (displayFormat === "rgb") displayFormat = "hex";
-  else if (displayFormat === "hex") displayFormat = "rgb";
-  displayColorFormat();
-}
-function displayColorFormat() {
-  var color;
-  if (isRelative) {
-    color = pickedColorRelative;
-  } else {
-    color = pickedColor;
-  }
-  if (displayFormat === "rgb") {
-    displayColor.textContent =
-      "rgb(" + color.r + ", " + color.g + ", " + color.b + ")";
-  } else if (displayFormat === "hex") {
-    var str = toHex(color);
-    if (isRelative) {
-      var r = color.r;
-      var g = color.g;
-      var b = color.b;
-    } else {
-      var r = str.substring(1, 3);
-      var g = str.substring(3, 5);
-      var b = str.substring(5, 7);
+const toggleDisplayFormat = () => {
+    displayFormat = displayFormat === "hex" ? "rgb" : "hex";
+    displayColorFormat();
+};
+const toggleNumberFormat = () => {
+    numberFormat = numberFormat === "rel" ? "abs" : "rel";
+    displayColorFormat();
+};
+const printColors = () => {
+    for (let i = 0; i < noOfBoxes; i++) {
+        squares[i].style.backgroundColor = rgbString(colors[i]);
     }
-    var HTML = "";
-    HTML += '#<span id="R">' + r;
-    HTML += '</span><span id="G">' + g;
-    HTML += '</span><span id="B">' + b + "</span>";
-    displayColor.innerHTML = HTML;
-  }
-}
-function toHex(color) {
-  var hex = "#";
-  var temp = "";
-  temp = color.r.toString(16);
-  if (temp.length == 1) temp = "0" + temp;
-  hex += temp;
-  temp = color.g.toString(16);
-  if (temp.length == 1) temp = "0" + temp;
-  hex += temp;
-  temp = color.b.toString(16);
-  if (temp.length == 1) temp = "0" + temp;
-  hex += temp;
-  return hex;
-}
-
-function randbw(a, b) {
-  value = Math.floor(Math.random() * (b - a) + a + 1);
-  return value;
-}
-function numGen() {
-  if (isHard) {
-    num = 6;
-  } else {
-    num = 3;
-  }
-}
-function genRandColor() {
-  return {
-    r: randbw(0, 255),
-    g: randbw(0, 255),
-    b: randbw(0, 255)
-  };
-}
-function genColorsArr() {
-  for (var i = 0; i < num; i++) {
-    colors.push(genRandColor());
-  }
-}
-function assignColors() {
-  for (var i = 0; i < num; i++) {
-    squares[i].style.backgroundColor =
-      "rgb(" + colors[i].r + "," + colors[i].g + "," + colors[i].b + ")";
-  }
-  for (var i = 3; i < 6; i++) {
-    if (isHard) {
-      squares[i].style.display = "block";
-    } else {
-      squares[i].style.display = "none";
+    for (let i = 3; i < 6; i++) {
+        if (level === "hard") {
+            squares[i].style.display = "block";
+        } else {
+            squares[i].style.display = "none";
+        }
     }
-  }
-}
-function pickColor() {
-  pickedColor = colors[randbw(0, num - 1)];
-}
-function newGame() {
-  colors = [];
-  numGen();
-  genColorsArr();
-  assignColors();
-  pickColor();
-  pickedColorRelative = toRelative(pickedColor);
-  displayColorFormat();
+};
+const newGame = () => {
+    noOfBoxes = level === "hard" ? 6 : 3;
+    colors = [];
+    for (let i = 0; i < noOfBoxes; i++) {
+        colors.push(new color());
+    }
+    pickedColor = colors[randbw(0, noOfBoxes - 1)];
+    printColors();
+    displayColorFormat();
 
-  if (isHard) {
-    hardButton.classList.add("selected");
-  } else {
-    easyButton.classList.add("selected");
-  }
-}
-function reset() {
-  newGame();
-  h1.style.backgroundColor = "steelblue";
-  resetButton.textContent = "New Colors";
-  response.textContent = "";
-}
-function gameWon() {
-  response.textContent = "Well Done";
-  h1.style.backgroundColor = toHex(pickedColor);
-  resetButton.textContent = "Another Game";
-  for (var j = 0; j < num; j++) {
-    squares[j].style.backgroundColor = toHex(pickedColor);
-  }
-}
-function gameLost(thisbox) {
-  response.textContent = "Try Again";
-  thisbox.style.backgroundColor = "#232323";
-}
-function toggleButton() {
-  isHard = !isHard;
-  easyButton.classList.toggle("selected");
-  hardButton.classList.toggle("selected");
-  reset();
-}
-//Game Starts
+    if (level === "hard") {
+        hardButton.classList.add("selected");
+    } else {
+        easyButton.classList.add("selected");
+    }
+};
+const reset = () => {
+    newGame();
+    h1.style.backgroundColor = "steelblue";
+    resetButton.textContent = "New Colors";
+    response.textContent = "";
+};
+const gameWon = () => {
+    let hex = hexString(pickedColor);
+    response.textContent = "Well Done";
+    resetButton.textContent = "Another Game";
+    h1.style.backgroundColor = hex;
+    for (const square of squares) {
+        square.style.backgroundColor = hex;
+    }
+};
+const gameLost = thisBox => {
+    response.textContent = "Try Again";
+    thisBox.style.backgroundColor = "#232323";
+};
+const toggleLevelButton = () => {
+    level = level === "hard" ? "easy" : "hard";
+    easyButton.classList.toggle("selected");
+    hardButton.classList.toggle("selected");
+    reset();
+};
+const displayColorFormat = () => {
+    let color;
+    if (displayFormat === "rgb") {
+        if (numberFormat === "abs") {
+            color = pickedColor;
+        } else {
+            color = pickedColor.rel();
+        }
+        displayColor.textContent = rgbString(color);
+    } else if (displayFormat === "hex") {
+        if (numberFormat === "abs") {
+            color = pickedColor.hex();
+        } else {
+            color = pickedColor.rel();
+        }
+        let HTML = "";
+        HTML += '#<span id="R">' + color.r;
+        HTML += '</span><span id="G">' + color.g;
+        HTML += '</span><span id="B">' + color.b + "</span>";
+        displayColor.innerHTML = HTML;
+    }
+};
+
 newGame();
-// Clicking The Boxes
-
-for (var k = 0; k < num; k++) {
-  squares[k].addEventListener("click", function() {
-    clickedColor = this.style.backgroundColor;
-    if (
-      clickedColor ==
-      "rgb(" + pickedColor.r + ", " + pickedColor.g + ", " + pickedColor.b + ")"
-    ) {
-      gameWon();
-    } else {
-      gameLost(this);
-    }
-  });
-}
-//Buttons
-easyButton.addEventListener("click", function() {
-  if (isHard) {
-    toggleButton();
-  }
-});
-hardButton.addEventListener("click", function() {
-  if (!isHard) {
-    toggleButton();
-  }
-});
-resetButton.addEventListener("click", reset);
