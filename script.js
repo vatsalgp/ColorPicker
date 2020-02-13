@@ -3,8 +3,9 @@ const squares = document.querySelectorAll(".square");
 const response = document.querySelector("#response");
 const displayColor = document.querySelector("#displayColor");
 const resetButton = document.querySelector("#resetButton");
-const easyButton = document.querySelector("#easyButton");
-const hardButton = document.querySelector("#hardButton");
+const levelButton = document.querySelector("#levelButton");
+const displayFormatButton = document.querySelector("#displayFormatButton");
+const numberFormatButton = document.querySelector("#numberFormatButton");
 
 let displayFormat = "hex";
 let numberFormat = "rel";
@@ -15,11 +16,23 @@ let pickedColor;
 let clickedColor;
 
 const toggleDisplayFormat = () => {
-    displayFormat = displayFormat === "hex" ? "rgb" : "hex";
+    if (displayFormat === "hex") {
+        displayFormat = "rgb";
+        displayFormatButton.textContent = "RGB"
+    } else {
+        displayFormat = "hex";
+        displayFormatButton.textContent = "Hex"
+    }
     displayColorFormat();
 };
 const toggleNumberFormat = () => {
-    numberFormat = numberFormat === "rel" ? "abs" : "rel";
+    if (numberFormat === "rel") {
+        numberFormat = "abs";
+        numberFormatButton.textContent = "Absolute"
+    } else {
+        numberFormat = "rel";
+        numberFormatButton.textContent = "Relative"
+    }
     displayColorFormat();
 };
 const printColors = () => {
@@ -44,11 +57,6 @@ const newGame = () => {
     printColors();
     displayColorFormat();
 
-    if (level === "hard") {
-        hardButton.classList.add("selected");
-    } else {
-        easyButton.classList.add("selected");
-    }
 };
 const reset = () => {
     newGame();
@@ -58,7 +66,7 @@ const reset = () => {
 };
 const gameWon = () => {
     let hex = hexString(pickedColor);
-    response.textContent = "Well Done";
+    response.innerHTML = "Well<br/>Done";
     resetButton.textContent = "Another Game";
     h1.style.backgroundColor = hex;
     for (const square of squares) {
@@ -66,13 +74,12 @@ const gameWon = () => {
     }
 };
 const gameLost = thisBox => {
-    response.textContent = "Try Again";
+    response.innerHTML = "Try<br/>Again";
     thisBox.style.backgroundColor = "#232323";
 };
 const toggleLevelButton = () => {
     level = level === "hard" ? "easy" : "hard";
-    easyButton.classList.toggle("selected");
-    hardButton.classList.toggle("selected");
+    levelButton.textContent = level;
     reset();
 };
 const displayColorFormat = () => {
@@ -97,5 +104,14 @@ const displayColorFormat = () => {
         displayColor.innerHTML = HTML;
     }
 };
-
+for (const square of squares) {
+    square.addEventListener("click", () => {
+        let clickedColor = square.style.backgroundColor;
+        if (clickedColor == rgbString(pickedColor)) {
+            gameWon();
+        } else {
+            gameLost(square);
+        }
+    });
+}
 newGame();

@@ -10,35 +10,48 @@
     </head>
     <body>
         <h1>
-            <div onclick="toggleNumberFormat();" id="great">
-                The Great Color
-            </div>
-            <div
-                id="displayColor"
-                onmouseover="this.style.cursor='pointer'"
-                onmouseout="this.style.cursor='default'"
-                onclick="toggleDisplayFormat();"
-            ></div>
+            <div>The Great Color</div>
+            <div id="displayColor"></div>
             Guessing Game
         </h1>
         <div class="stripe">
-            <button id="resetButton">New Colors</button>
-            <span id="response"></span>
-            <button id="easyButton">Easy</button>
-            <button id="hardButton">Hard</button>
+            <div class="container">
+                <div class="leftButtons">
+                    <button id="resetButton" onclick="reset();">
+                        New Colors
+                    </button>
+                    <button
+                        id="numberFormatButton"
+                        onclick="toggleNumberFormat();"
+                    >
+                        Relative
+                    </button>
+                </div>
+                <div id="response"></div>
+                <div class="rightButtons">
+                    <button id="levelButton" onclick="toggleLevelButton();">
+                        Hard
+                    </button>
+                    <button
+                        id="displayFormatButton"
+                        onclick="toggleDisplayFormat();"
+                    >
+                        Hex
+                    </button>
+                </div>
+            </div>
         </div>
-
-        <div id="container">
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
-            <div class="square"></div>
+        <div class="boxes">
+            <div class="container">
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+            </div>
         </div>
-
         <script defer type="text/javascript" src="color.js"></script>
         <script defer type="text/javascript" src="script.js"></script>
-        <script defer type="text/javascript" src="event.js"></script>
     </body>
 </html>

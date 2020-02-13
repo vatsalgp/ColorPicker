@@ -3,7 +3,6 @@ body {
     margin: 0;
     font-family: "Montserrat";
 }
-
 h1 {
     text-align: center;
     color: white;
@@ -12,40 +11,33 @@ h1 {
     font-weight: normal;
     text-transform: uppercase;
     line-height: 1.1;
-    padding: 20px 0;
+    padding: 10px 0;
+    height: 25%;
 }
-
 #displayColor {
     font-size: 150%;
 }
-
-#great {
-    cursor: pointer;
-}
-
 .stripe {
     text-align: center;
     background-color: white;
-    height: 30px;
+    height: 10vh;
 }
-
-#container {
+.container {
+    position: relative;
     max-width: 600px;
-    margin: 20px auto;
+    margin: auto;
+    padding: 0;
+    height: 100%;
 }
-
 #R {
     color: #ff0000;
 }
-
 #G {
     color: #00ff00;
 }
-
 #B {
     color: #0000ff;
 }
-
 .square {
     background-color: purple;
     width: 30%;
@@ -57,23 +49,19 @@ h1 {
     -webkit-transition: background 0.6s;
     -moz-transition: background 0.6s;
 }
-
-.selected {
-    color: white;
-    background-color: steelblue;
-}
-
 #response {
     display: inline-block;
     width: 20%;
+    height: 100%;
+    font-size: 22px;
 }
-
 button {
     border: none;
     outline: none;
     background: none;
     text-transform: uppercase;
     font-family: "Montserrat";
+    /* width: 60px; */
     height: 100%;
     font-weight: 700;
     color: steelblue;
@@ -83,8 +71,39 @@ button {
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
 }
-
 button:hover {
     color: white;
     background-color: steelblue;
+}
+.leftButtons {
+    position: absolute;
+    left: 10px;
+    padding: 0;
+    height: 100%;
+}
+.rightButtons {
+    position: absolute;
+    right: 10px;
+    padding: 0;
+    height: 100%;
+    top: 0;
+}
+#resetButton {
+    height: 50%;
+}
+#numberFormatButton {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    margin: 0;
+    height: 50%;
+}
+#levelButton {
+    height: 50%;
+}
+#displayFormatButton {
+    position: absolute;
+    top: 30px;
+    height: 50%;
+    right: 0;
 }
