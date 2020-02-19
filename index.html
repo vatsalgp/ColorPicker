@@ -1,57 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Color Picker Game</title>
-        <link rel="stylesheet" type="text/css" href="style.css" />
-        <link
-            href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
-            rel="stylesheet"
-        />
-    </head>
-    <body>
-        <h1>
-            <div>The Great Color</div>
-            <div id="displayColor"></div>
-            Guessing Game
-        </h1>
-        <div class="stripe">
-            <div class="container">
-                <div class="leftButtons">
-                    <button id="resetButton" onclick="reset();">
-                        New Colors
-                    </button>
-                    <button
-                        id="numberFormatButton"
-                        onclick="toggleNumberFormat();"
-                    >
-                        Relative
-                    </button>
-                </div>
-                <div id="response"></div>
-                <div class="rightButtons">
-                    <button id="levelButton" onclick="toggleLevelButton();">
-                        Hard
-                    </button>
-                    <button
-                        id="displayFormatButton"
-                        onclick="toggleDisplayFormat();"
-                    >
-                        Hex
-                    </button>
-                </div>
+
+<head>
+    <title>Color Picker Game</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+    <h1>
+        <div>The Great Color</div>
+        <div id="displayColor"></div>
+        Guessing Game
+    </h1>
+    <div class="stripe">
+        <div class="container">
+            <div class="leftButtons">
+                <button id="resetButton" onclick="reset();">
+                    New Colors
+                </button>
+                <button id="numberFormatButton" onclick="toggleNumberFormat();">
+                    Relative
+                </button>
+            </div>
+            <div id="response"></div>
+            <div class="rightButtons">
+                <button id="levelButton" onclick="toggleLevelButton();">
+                    Hard
+                </button>
+                <button id="displayFormatButton" onclick="toggleDisplayFormat();">
+                    Hex
+                </button>
             </div>
         </div>
-        <div class="boxes">
-            <div class="container">
-                <div class="square"></div>
-                <div class="square"></div>
-                <div class="square"></div>
-                <div class="square"></div>
-                <div class="square"></div>
-                <div class="square"></div>
-            </div>
+    </div>
+
+    <div class="container">
+        <div class="squares">
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
+            <div class="square"></div>
         </div>
-        <script defer type="text/javascript" src="color.js"></script>
-        <script defer type="text/javascript" src="script.js"></script>
-    </body>
+    </div>
+    <script defer type="text/javascript" src="color.js"></script>
+    <script defer type="text/javascript" src="script.js"></script>
+</body>
+
 </html>
